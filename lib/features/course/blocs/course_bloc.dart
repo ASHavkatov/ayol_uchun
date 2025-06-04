@@ -9,8 +9,8 @@ class CourseBloc extends Bloc<CourseEvent, CourseState>{
     on<CourseLoad>(_onLoad);
     add(CourseLoad());
   }
-  Future _onLoad(CourseEvent event, Emitter<CourseState>emit)async{
+  Future _onLoad(CourseLoad event, Emitter<CourseState>emit)async{
     final detail = await _repo.fetchCourses();
-    return CourseState(model: detail, status: CourseStatus.idle);
+    emit(state.copyWith(course: detail, status: CourseStatus.idle));
   }
 }

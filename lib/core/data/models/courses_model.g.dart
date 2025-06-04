@@ -12,7 +12,7 @@ CoursesModel _$CoursesModelFromJson(Map<String, dynamic> json) => CoursesModel(
   category: json['category'] as String,
   title: json['title'] as String,
   image: json['image'] as String,
-  status: json['status'] as String,
-  price: (json['price'] as num).toInt(),
+  status: json['status'] as String?,
+  price: json['price'] as num,
   rating: json['rating'] as num,
 );

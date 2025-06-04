@@ -1,8 +1,11 @@
+import 'package:ayol_uchun_exam/features/home/blocs/home_bloc.dart';
+import 'package:ayol_uchun_exam/features/home/blocs/home_state.dart';
+import 'package:ayol_uchun_exam/features/home/widgets/categories_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/advertisement.dart';
-import '../widgets/categories_container.dart';
 import '../widgets/course_container.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
@@ -14,47 +17,54 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        name: 'Mohi',
-        icon: 'assets/icons/notification.svg',
-        callback: () {},
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 24.h,
-                    horizontal: 20.w,
-                  ),
-                  child: CourseContainer(callback: () {}),
-                ),
-              ],
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return switch (state.status) {
+          HomeStatus.error => Center(child: Text("Xatolik bor")),
+          HomeStatus.loading => Center(child: CircularProgressIndicator()),
+          HomeStatus.idle => Scaffold(
+            appBar: CustomAppBar(
+              name: state.user?.firstName ?? "Foydalanuvchi",
+              icon: 'assets/icons/notification.svg',
+              callback: () {},
             ),
-            SizedBox(height: 24.h),
-            CategoriesContainer(callback: () {}),
-            SizedBox(height: 24.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+
+            body: SingleChildScrollView(
               child: Column(
                 children: [
-                  SocialNetwork(),
-                  SizedBox(height: 28.h),
-                  Interviews(),
-                  SizedBox(height: 28.h),
-                  Advertisement(),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 24.h,
+                          horizontal: 20.w,
+                        ),
+                        child: CourseContainer(callback: () {}),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24.h),
+                  CategoriesContainer(categories: state.category!),
+                  SizedBox(height: 24.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    child: Column(
+                      children: [
+                        SocialNetwork(social: state.social!,),
+                        SizedBox(height: 28.h),
+                        Interviews(interviews: state.interview!,),
+                        SizedBox(height: 28.h),
+                        Advertisement(),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+            bottomNavigationBar: CustomBottomNavigationBar(),
+          ),
+        };
+      },
     );
   }
 }
-
-

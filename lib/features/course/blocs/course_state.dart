@@ -10,11 +10,11 @@ enum CourseStatus { error, loading, idle }
 @freezed
 abstract class CourseState with _$CourseState {
   const factory CourseState({
-    required List<CoursesModel>? model,
+    required List<CoursesModel>? course,
     required CourseStatus status,
   }) = _CourseState;
 
   factory CourseState.initial() {
-    return CourseState(model: null, status: CourseStatus.loading);
+    return CourseState(course: null, status: CourseStatus.loading);
   }
 }

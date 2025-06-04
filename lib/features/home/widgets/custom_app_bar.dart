@@ -31,7 +31,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Salom, ${name}",
+              "${name}",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 22,

@@ -1,3 +1,4 @@
+import 'package:ayol_uchun_exam/core/data/models/interview_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,9 +6,17 @@ import 'package:flutter_svg/svg.dart';
 import '../../../core/utils/colors.dart';
 
 class Interviews extends StatelessWidget {
-  const Interviews({super.key});
+   const Interviews({super.key, required this.interviews});
+  final List<InterviewModel> interviews ;
+   String formatDuration(int totalMinutes) {
+     final hours = totalMinutes ~/ 60;
+     final minutes = totalMinutes % 60;
 
-  @override
+     return '${hours} soat, ${minutes} daqiqa';
+   }
+
+
+   @override
   Widget build(BuildContext context) {
     return Column(
       spacing: 16.h,
@@ -25,7 +34,7 @@ class Interviews extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             spacing: 20.w,
-            children: List.generate(3, (index) {
+            children: List.generate(interviews.length, (index) {
               return Stack(
                 children: [
                   Container(
@@ -49,8 +58,8 @@ class Interviews extends StatelessWidget {
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15),
                       ),
-                      child: Image.asset(
-                        "assets/icons/xola.png",
+                      child: Image.network(
+                        interviews[index].image,
                         width: 228.w,
                         height: 140.h,
                         fit: BoxFit.cover,
@@ -73,7 +82,7 @@ class Interviews extends StatelessWidget {
                             ),
                             SizedBox(width: 1.w),
                             Text(
-                              "1 saot, 22 daqiqa",
+                              formatDuration(interviews[index].duration),
                               style: TextStyle(
                                 color: AppColors.textColor,
                                 fontSize: 13,
@@ -86,7 +95,7 @@ class Interviews extends StatelessWidget {
                           height: 40.h,
                           width: 200.w,
                           child: Text(
-                            "Oilaviy psixologiya asoslari, boshlang‘ich tavsiyalar",
+                            interviews[index].title,
                             maxLines: 2,
                             textAlign: TextAlign.start,
                             softWrap: true,
@@ -106,7 +115,7 @@ class Interviews extends StatelessWidget {
                             ),
                             SizedBox(width: 1.w),
                             Text(
-                              "1 saot, 22 daqiqa",
+                              interviews[index].user,
                               style: TextStyle(
                                 color: AppColors.textColor,
                                 fontSize: 13,
@@ -123,27 +132,34 @@ class Interviews extends StatelessWidget {
             }),
           ),
         ),
-        Row(
-          children: [
-            Text(
-              "Barcha intervyular",
-              style: TextStyle(
-                color: AppColors.textColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+        GestureDetector(
+          onTap: (){},
+          child: SizedBox(
+            width: 173.w,
+            height: 21.h,
+            child: Row(
+              children: [
+                Text(
+                  "Barcha intervyular",
+                  style: TextStyle(
+                    color: AppColors.textColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(width: 7.h),
+                SvgPicture.asset(
+                  "assets/icons/arrow-right.svg",
+                  width: 20.w,
+                  height: 20.h,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.textColor,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ],
             ),
-            SizedBox(width: 7.h),
-            SvgPicture.asset(
-              "assets/icons/arrow-right.svg",
-              width: 20.w,
-              height: 20.h,
-              colorFilter: ColorFilter.mode(
-                AppColors.textColor,
-                BlendMode.srcIn,
-              ),
-            ),
-          ],
+          ),
         ),
       ],
     );

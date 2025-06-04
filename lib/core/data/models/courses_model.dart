@@ -9,9 +9,9 @@ class CoursesModel {
   final String category;
   final String image;
   final String title;
-  final int price;
+  final num price;
   final num rating;
-  final String status;
+  final String? status;
 
   CoursesModel({
     required this.id,
