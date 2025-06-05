@@ -7,15 +7,15 @@ class SignUpModel {
   final String firstName;
   final String lastName;
   final String email;
-  final String? phoneNumber;
-  final String? password;
+  final String phoneNumber;
+  final String password;
 
   SignUpModel({
     required this.email,
     required this.firstName,
     required this.lastName,
-    this.password,
-    this.phoneNumber,
+    required this.password,
+    required this.phoneNumber,
   });
   factory SignUpModel.fromJson(Map<String, dynamic>json)=> _$SignUpModelFromJson(json);
   Map<String,dynamic>toJson()=>_$SignUpModelToJson(this);

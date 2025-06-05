@@ -1,3 +1,4 @@
+import 'package:ayol_uchun_exam/core/data/models/social_accounts_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../core/data/models/courses_model.dart';
@@ -11,10 +12,11 @@ enum CourseStatus { error, loading, idle }
 abstract class CourseState with _$CourseState {
   const factory CourseState({
     required List<CoursesModel>? course,
+    required List<SocialAccountsModel>? social,
     required CourseStatus status,
   }) = _CourseState;
 
   factory CourseState.initial() {
-    return CourseState(course: null, status: CourseStatus.loading);
+    return CourseState(course: null, status: CourseStatus.loading, social: []);
   }
 }

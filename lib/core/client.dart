@@ -3,7 +3,7 @@ import 'package:ayol_uchun_exam/core/interceptor.dart';
 import 'package:dio/dio.dart';
 
 class ApiClient {
-  final Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.9.28:8888/api/v1",validateStatus: (status) => true,))
+  final Dio dio = Dio(BaseOptions(baseUrl: "http://172.20.10.2:8888/api/v1",validateStatus: (status) => true,))
     ..interceptors.add(AuthInterceptor());
 
   Future<List<dynamic>> fetchCategories() async {
@@ -43,27 +43,45 @@ class ApiClient {
   }
 
   Future<String> login(String login, String password) async {
-    var response = await dio.post(
-      '/auth/login',
-      data: {'login': login, 'password': password},
-    );
-    if (response.statusCode == 200) {
-      Map<String, String> data = Map<String, String>.from(response.data);
-      return data['accessToken']!;
-    } else {
-      throw Exception("Login qilishda xatolik");
+    try {
+      final response = await dio.post(
+        '/auth/login',
+        data: {'login': login, 'password': password},
+      );
+      if (response.statusCode == 200) {
+        final data = Map<String, dynamic>.from(response.data);
+        final accessToken = data['accessToken'];
+        if (accessToken is String) {
+          return accessToken;
+        } else {
+          throw Exception("Token topilmadi");
+        }
+      } else {
+        throw Exception("Login qilishda xatolik: ${response.statusCode}");
+      }
+    }  catch (e) {
+      throw Exception("Tarmoq xatosi: ${e}");
+    } catch (e) {
+      throw Exception("Noma'lum xatolik: $e");
     }
-
   }
 
   Future<bool> signUp(SignUpModel model) async {
-    var response = await dio.post('/auth/register', data: model.toJson());
-    if (response.statusCode == 201) {
-      return true;
-    } else {
-      return false;
+    try {
+      var response = await dio.post('/auth/register', data: model.toJson());
+      print("Client: ${response.statusCode}");
+      print("Client2: ${response.data}");
+      print("Client3: ${response}");
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception("Ro‘yxatdan o‘tishda noma'lum xatolik yuz berdi.");
+      }
+    } on DioException catch (e) {
+      throw Exception("Ro‘yxatdan o‘tishda xatolik: ${e.response?.data ?? e.message}");
     }
   }
+
   Future<dynamic>fetchUser()async{
     final response =await dio.get("/auth/me");
     if(response.statusCode == 200){

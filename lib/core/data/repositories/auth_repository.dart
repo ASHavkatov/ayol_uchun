@@ -11,7 +11,6 @@ class AuthRepository {
 
   String? jwt;
 
-
   Future<bool> login(String login, String password) async {
     jwt = await client.login(login, password);
     await SecureStorage.deleteCredentials();
@@ -41,16 +40,24 @@ class AuthRepository {
     required String firstName,
     required String lastName,
     required String email,
+    required String phoneNumber,
+    required String password,
   }) async {
     final result = await client.signUp(
-      SignUpModel(firstName: firstName, lastName: lastName, email: email),
+      SignUpModel(
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phoneNumber: phoneNumber,
+        password: password,
+      ),
     );
+    print("Repos : $result");
     return result;
   }
 
-  Future<UserModel>fetchUser()async{
+  Future<UserModel> fetchUser() async {
     final rawUser = await client.fetchUser();
     return UserModel.fromJson(rawUser);
   }
-
 }

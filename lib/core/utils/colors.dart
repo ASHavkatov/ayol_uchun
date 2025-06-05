@@ -8,4 +8,5 @@ class AppColors{
   static const darkContainer = Color(0xff3F5170);
   static const statusColor = Color(0xff0DA5C0);
   static const bestSeller = Color(0xffFC9841);
+  static const gredient = Color(0xffA41B6B);
 }

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CourseState {
 
- List<CoursesModel>? get course; CourseStatus get status;
+ List<CoursesModel>? get course; List<SocialAccountsModel>? get social; CourseStatus get status;
 /// Create a copy of CourseState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $CourseStateCopyWith<CourseState> get copyWith => _$CourseStateCopyWithImpl<Cour
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CourseState&&const DeepCollectionEquality().equals(other.course, course)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CourseState&&const DeepCollectionEquality().equals(other.course, course)&&const DeepCollectionEquality().equals(other.social, social)&&(identical(other.status, status) || other.status == status));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(course),status);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(course),const DeepCollectionEquality().hash(social),status);
 
 @override
 String toString() {
-  return 'CourseState(course: $course, status: $status)';
+  return 'CourseState(course: $course, social: $social, status: $status)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $CourseStateCopyWith<$Res>  {
   factory $CourseStateCopyWith(CourseState value, $Res Function(CourseState) _then) = _$CourseStateCopyWithImpl;
 @useResult
 $Res call({
- List<CoursesModel>? course, CourseStatus status
+ List<CoursesModel>? course, List<SocialAccountsModel>? social, CourseStatus status
 });
 
 
@@ -63,10 +63,11 @@ class _$CourseStateCopyWithImpl<$Res>
 
 /// Create a copy of CourseState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? course = freezed,Object? status = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? course = freezed,Object? social = freezed,Object? status = null,}) {
   return _then(_self.copyWith(
 course: freezed == course ? _self.course : course // ignore: cast_nullable_to_non_nullable
-as List<CoursesModel>?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as List<CoursesModel>?,social: freezed == social ? _self.social : social // ignore: cast_nullable_to_non_nullable
+as List<SocialAccountsModel>?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as CourseStatus,
   ));
 }
@@ -78,7 +79,7 @@ as CourseStatus,
 
 
 class _CourseState implements CourseState {
-  const _CourseState({required final  List<CoursesModel>? course, required this.status}): _course = course;
+  const _CourseState({required final  List<CoursesModel>? course, required final  List<SocialAccountsModel>? social, required this.status}): _course = course,_social = social;
   
 
  final  List<CoursesModel>? _course;
@@ -86,6 +87,15 @@ class _CourseState implements CourseState {
   final value = _course;
   if (value == null) return null;
   if (_course is EqualUnmodifiableListView) return _course;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+ final  List<SocialAccountsModel>? _social;
+@override List<SocialAccountsModel>? get social {
+  final value = _social;
+  if (value == null) return null;
+  if (_social is EqualUnmodifiableListView) return _social;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(value);
 }
@@ -102,16 +112,16 @@ _$CourseStateCopyWith<_CourseState> get copyWith => __$CourseStateCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CourseState&&const DeepCollectionEquality().equals(other._course, _course)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CourseState&&const DeepCollectionEquality().equals(other._course, _course)&&const DeepCollectionEquality().equals(other._social, _social)&&(identical(other.status, status) || other.status == status));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_course),status);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_course),const DeepCollectionEquality().hash(_social),status);
 
 @override
 String toString() {
-  return 'CourseState(course: $course, status: $status)';
+  return 'CourseState(course: $course, social: $social, status: $status)';
 }
 
 
@@ -122,7 +132,7 @@ abstract mixin class _$CourseStateCopyWith<$Res> implements $CourseStateCopyWith
   factory _$CourseStateCopyWith(_CourseState value, $Res Function(_CourseState) _then) = __$CourseStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<CoursesModel>? course, CourseStatus status
+ List<CoursesModel>? course, List<SocialAccountsModel>? social, CourseStatus status
 });
 
 
@@ -139,10 +149,11 @@ class __$CourseStateCopyWithImpl<$Res>
 
 /// Create a copy of CourseState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? course = freezed,Object? status = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? course = freezed,Object? social = freezed,Object? status = null,}) {
   return _then(_CourseState(
 course: freezed == course ? _self._course : course // ignore: cast_nullable_to_non_nullable
-as List<CoursesModel>?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as List<CoursesModel>?,social: freezed == social ? _self._social : social // ignore: cast_nullable_to_non_nullable
+as List<SocialAccountsModel>?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as CourseStatus,
   ));
 }

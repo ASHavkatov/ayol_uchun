@@ -168,7 +168,6 @@ class _LoginViewState extends State<LoginView> {
                       final formState = formKey.currentState;
                       if (formState != null && formState.validate()) {
                         context.read<LoginBloc>().add(LoginLoad());
-                        context.go(Routes.home);
                       }
                     },
                   ),
@@ -176,7 +175,9 @@ class _LoginViewState extends State<LoginView> {
                   LoginContainer(
                     color: AppColors.darkContainer,
                     text: "Ro'yxatdan o'tish",
-                    callback: () {},
+                    callback: () {
+                      context.go(Routes.signUp);
+                    },
                   ),
                 ],
               ),
